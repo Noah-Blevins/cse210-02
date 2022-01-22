@@ -6,5 +6,12 @@ class Director:
         current_card = ""
         playing = True
         
+    def get_input():
+        pass
     
+    def do_updates():
+        pass
+    
+    def give_output():
+        pass
         
