@@ -25,8 +25,14 @@ class Director:
             self.give_output()
     def display_card(self):
         pass
-    def get_input():
-        pass
+        
+    def get_input(self):
+        """
+        Ask the user if they want to play again
+        """
+        play = input("Play again? [y/n] ")
+        self.is_playing = (play == "y")
+        print()
     
     def do_updates():
         pass
