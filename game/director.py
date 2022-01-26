@@ -69,6 +69,7 @@ class Director:
                 self.score -= 75
         else:
             self.incorrect_format = True
+        self.current_card = self.next_card
             
     
     def give_output():
