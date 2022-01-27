@@ -45,32 +45,52 @@ class Director:
         """
         Ask the user if they want to play again if the first card has already been resolved
         """
-        if self.first_card == True:
+        if self.first_card == True and self.incorrect_format == False:
             play = input("Play again? [y/n] ")
-            self.is_playing = (play == "y")
+            self.playing = (play == "y")
             print()
-            
-        self.guess = input('Is the next card higher or lower? Enter HI or LO to guess: ').upper()
+        if self.playing == True:    
+            self.guess = input('Is the next card higher or lower? Enter HI or LO to guess: ').upper()
         
     
     def do_updates(self):
-        self.incorrect_format = False
-        self.first_card = False
-        self.next_card = self.deck.draw_card()
-        if self.guess == 'HI':
-            if self.next_card > self.current_card:
-                self.score += 100
+        if self.playing:
+            self.incorrect_format = False
+            self.first_card = False
+            self.next_card = self.deck.draw_card()
+            if self.guess == 'HI':
+                if self.next_card > self.current_card:
+                    self.score += 100
+                else:
+                    self.score -= 75
+                    self.current_card = self.next_card
+
+            elif self.guess == 'LO':
+                if self.next_card < self.current_card:
+                    self.score += 100
+                else:
+                    self.score -= 75
+                    self.current_card = self.next_card
+
             else:
-                self.score -= 75
-        elif self.guess == 'LO':
-            if self.next_card < self.current_card:
-                self.score += 100
-            else:
-                self.score -= 75
-        else:
-            self.incorrect_format = True
-        self.current_card = self.next_card
+                self.incorrect_format = True
+            
+            if self.score <= 0:
+                self.playing = False
+        
             
     
-    def give_output():
-        pass
+    def give_output(self):
+        
+        if self.playing:
+            if self.incorrect_format:
+                print('Please enter "HI" or "LO".')
+            else:
+                print(f'Your current score is: {self.score}')
+        else:
+            print(f'Thank you for playing the game! Your final score is {self.score}')
+            if self.score > 0:
+                print('Good job!')
+            else:
+                print('Better luck next time!')
+            
